@@ -1,0 +1,28 @@
+apiVersion: v1
+
+kind: Service
+
+metadata:
+  name: n8n-service
+
+  annotations:
+
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+
+    service.beta.kubernetes.io/do-loadbalancer-size-slug: "lb-large"
+
+spec:
+  selector:
+
+    app: n8n_app
+
+  ports:
+
+    - name: http
+
+      protocol: TCP
+
+      port: 80
+
+      targetPort: 5678
+  type: LoadBalancer

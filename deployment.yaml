@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: n8n-deployment
+
+spec:
+  selector:
+
+    matchLabels:
+
+      app: n8n_app
+
+  replicas: 1
+
+  template:
+
+    metadata:
+
+      labels:
+
+        app: n8n_app
+
+    spec:
+
+      containers:
+
+        - name:  n8n-container
+
+          image: abhiya/n8n:latest
+
+          ports:
+
+            - containerPort: 5678
+          volumeMounts:
+           - name: n8n-data
+             mountPath: /n8n
+      volumes:
+       - name: n8n-data
+         persistentVolumeClaim:
+            claimName: n8n-pvc
+        
